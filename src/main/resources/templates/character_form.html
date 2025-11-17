@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title th:text="${formTitle}">Forma</title></head>
+<body>
+<h2 th:text="${formTitle}">Forma</h2>
+
+<form th:action="@{/characters/save}" th:object="${character}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <p>
+        <label>Ime:</label><br/>
+        <input th:field="*{name}" />
+        <span style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </p>
+
+    <p>
+        <label>Power (0–100):</label><br/>
+        <input type="number" th:field="*{power}"/>
+        <span style="color:red" th:if="${#fields.hasErrors('power')}" th:errors="*{power}"></span>
+    </p>
+
+    <p>
+        <label>Lives (0–5):</label><br/>
+        <input type="number" th:field="*{lives}"/>
+        <span style="color:red" th:if="${#fields.hasErrors('lives')}" th:errors="*{lives}"></span>
+    </p>
+
+    <p>
+        <label>Points (>=0):</label><br/>
+        <input type="number" th:field="*{points}"/>
+        <span style="color:red" th:if="${#fields.hasErrors('points')}" th:errors="*{points}"></span>
+    </p>
+
+    <p>
+        <label>Level (>=1):</label><br/>
+        <input type="number" th:field="*{level}"/>
+        <span style="color:red" th:if="${#fields.hasErrors('level')}" th:errors="*{level}"></span>
+    </p>
+
+    <button type="submit">Sačuvaj</button>
+    <a th:href="@{/characters}">Nazad</a>
+</form>
+
+</body>
+</html>

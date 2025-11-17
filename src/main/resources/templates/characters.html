@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Characters</title></head>
+<body>
+<h2>Characters</h2>
+
+<form th:action="@{/logout}" method="post" style="float:right;">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <button type="submit">Logout</button>
+</form>
+
+<p><a th:href="@{/characters/new}">+ Novi karakter</a></p>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>ID</th><th>Name</th><th>Power</th><th>Lives</th><th>Points</th><th>Level</th><th>Akcije</th>
+    </tr>
+    <tr th:each="c : ${characters}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.name}"></td>
+        <td th:text="${c.power}"></td>
+        <td th:text="${c.lives}"></td>
+        <td th:text="${c.points}"></td>
+        <td th:text="${c.level}"></td>
+        <td>
+            <a th:href="@{'/characters/edit/' + ${c.id}}">Uredi</a>
+            &nbsp;|&nbsp;
+            <form th:action="@{'/characters/delete/' + ${c.id}}" method="post" style="display:inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" onclick="return confirm('Obrisati?')">Obriši</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
